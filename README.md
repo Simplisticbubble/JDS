@@ -1,0 +1,1 @@
+This coding project involves new relic and its purpose is to send dashbaord screenshots to different people on a scheduled time
