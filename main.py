@@ -33,7 +33,7 @@ class AgeCalculator(App):
         self.window.add_widget(self.EnterGUID)
 
         self.button = Button(
-            text = "SendNow",
+            text = "confirm",
             size_hint = (0.5, 0.5),
             bold = True,
             font_size = 30

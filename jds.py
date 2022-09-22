@@ -2,6 +2,7 @@ import requests
 import schedule
 import time
 import smtplib, ssl
+from datetime import datetime
 
 class Person:
     def __init__(self, name, email, dashBoard):
@@ -25,6 +26,8 @@ ListRec = []
 ListRec.append(Person("John", "ks.kevinseu@gmail.com", "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
 ListRec.append(Person("Kevin", "electrobubz@gmail.com", "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
 ListRec.append(Person("Jimmy", "Jimmy.test@gmail.com", "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3ODQ0NzM"))
+#ListRec.append(Person("Lance", "leeshihhom@hotmail.com", "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
+#ListRec.append(Person("Shu","shufoldof@gmail.com", "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
 
 def ListAppend(name, email,dashBoard):
     ListRec.append(Person(name, email, dashBoard))
@@ -32,7 +35,23 @@ def ListAppend(name, email,dashBoard):
 def printList():
     for i in ListRec:
         i.printDetail()
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+class ErrorLog:
+    def __init__(self, time, dashBoard):
+        self.time = time
+        self.dashBoard = dashBoard
     
+    def printLogDetail(abc):
+        print("time: " + abc.time)
+        print("DashBoard guid: " + abc.dashBoard)
+
+ListErrorLog = []
+ListErrorLog.append(ErrorLog(current_time, "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
+
+def printLog():
+    for i in ListErrorLog:
+        i.printLogDetail()
 
 def postReq(abc):
 
@@ -45,13 +64,17 @@ def postReq(abc):
     )
 
     #print the response text (the content of the requested file):
+    print(x.text)
+    if "error" in x.text:
+        ListErrorLog.append(ErrorLog(current_time, abc))
 
     return(x.text);
 
-
+print(postReq("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMD"))
 
 def slicer(pdfFile):
-
+    if "error" in pdfFile:
+        return("error!-no dashboard found")
     return(pdfFile[39:121])
 
 
@@ -68,13 +91,14 @@ password = "fxfynlpbuyubncgv"
 # Create a secure SSL context
 context = ssl.create_default_context()
 def sendMail(abc):
-
+    TEXT = slicer(postReq(abc))
+    print(slicer(postReq(abc)))
     for i in ListRec:
         if i.hasdash(abc):
             receiver_email = i.getEmail()
-            print(slicer(postReq(abc)))
+            
             SUBJECT = "TEST"
-            TEXT = slicer(postReq(abc))
+            
             message = """\
             Subject: %s
 
@@ -87,5 +111,7 @@ def sendMail(abc):
 
 
 #schedule.every().day.at("10:30").do(sendMail("MzM5MzExMHxWSVp8REFTSEJPQVJEfDU2MTkwMjU"))
-sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk")
+#schedule.every().day.at("11:30").do(sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3ODQ0NzM")
+#sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk")
 
+printLog()
