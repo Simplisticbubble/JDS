@@ -6,7 +6,7 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from jds import *
 
-class AgeCalculator(App):
+class JDS(App):
     def build(self):
         
         self.window = GridLayout()
@@ -33,7 +33,7 @@ class AgeCalculator(App):
         self.window.add_widget(self.EnterGUID)
 
         self.button = Button(
-            text = "confirm",
+            text = "get DashBoard",
             size_hint = (0.5, 0.5),
             bold = True,
             font_size = 30
@@ -41,14 +41,47 @@ class AgeCalculator(App):
         self.button.bind(on_press = self.callback)
         self.window.add_widget(self.button)
 
+        self.button2 = Button(
+            text = "Print Recipients",
+            size_hint = (0.5, 0.5),
+            bold = True,
+            font_size = 30
+        )
+        self.button2.bind(on_press = self.printRec)
+        self.window.add_widget(self.button2)
+
+        self.button3 = Button(
+            text = "Print Audit Log",
+            size_hint = (0.5, 0.5),
+            bold = True,
+            font_size = 30
+        )
+        self.button3.bind(on_press = self.printAudit)
+        self.window.add_widget(self.button3)
+        
+        self.button4 = Button(
+            text = "Print Error Log",
+            size_hint = (0.5, 0.5),
+            bold = True,
+            font_size = 30
+        )
+        self.button4.bind(on_press = self.printError)
+        self.window.add_widget(self.button4)
+
         return self.window
 
     def callback(self,event):
         self.SendDashNow.text = slicer(postReq(self.EnterGUID.text))
+    def printRec(self,event):
+        printList()
+    def printAudit(self, event):
+        printAuditLog()
+    def printError(self,event):
+        printLog()
 
 
 if __name__ == "__main__":
-    AgeCalculator().run()
+    JDS().run()
 
 
 

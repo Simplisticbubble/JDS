@@ -35,8 +35,10 @@ def ListAppend(name, email,dashBoard):
     ListRec.append(Person(name, email, dashBoard))
 
 def printList():
+    print("--------------------------------------Recipients--------------------------------------------")
     for i in ListRec:
         i.printDetail()
+    print("----------------------------------------------------------------------------------")
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
 class ErrorLog:
@@ -52,8 +54,10 @@ ListErrorLog = []
 ListErrorLog.append(ErrorLog(current_time, "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
 
 def printLog():
+    print("-------------------------------------ERROR-LOG---------------------------------------------")
     for i in ListErrorLog:
         i.printLogDetail()
+    print("----------------------------------------------------------------------------------")
 
 class AuditLog():
     def __init__(self,name, email,time, dashBoard):
@@ -68,8 +72,10 @@ ListAuditLog = []
 ListAuditLog.append(AuditLog("Kevin", "electrobubz@gmail.com", current_time, "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
 
 def printAuditLog():
+    print("----------------------------------------Audit-Log------------------------------------------")
     for i in ListAuditLog:
         i.printAuditDetail()
+    print("----------------------------------------------------------------------------------")
 
 def postReq(abc):
 
@@ -88,7 +94,7 @@ def postReq(abc):
 
     return(x.text);
 
-print(postReq("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMD"))
+
 
 def slicer(pdfFile):
     if "error" in pdfFile:
@@ -110,7 +116,7 @@ password = "fxfynlpbuyubncgv"
 context = ssl.create_default_context()
 def sendMail(abc):
     TEXT = slicer(postReq(abc))
-    print(slicer(postReq(abc)))
+    
     for i in ListRec:
         if i.hasdash(abc):
             receiver_email = i.getEmail()
@@ -131,7 +137,8 @@ def sendMail(abc):
 
 #schedule.every().day.at("10:30").do(sendMail("MzM5MzExMHxWSVp8REFTSEJPQVJEfDU2MTkwMjU"))
 #schedule.every().day.at("11:30").do(sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3ODQ0NzM")
-sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk")
+#sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk")
 
-printLog()
-printAuditLog()
+#printLog()
+#printAuditLog()
+#printList()
