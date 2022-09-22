@@ -16,6 +16,8 @@ class Person:
         print("DashBoard: " + abc.dashBoard)
     def getEmail(abc):
         return abc.email
+    def getName(abc):
+        return abc.name
 
     def hasdash(abc,dboard):
         if dboard == abc.dashBoard:
@@ -52,6 +54,22 @@ ListErrorLog.append(ErrorLog(current_time, "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3Mzgy
 def printLog():
     for i in ListErrorLog:
         i.printLogDetail()
+
+class AuditLog():
+    def __init__(self,name, email,time, dashBoard):
+        self.name = name
+        self.email = email
+        self.time = time
+        self.dashBoard = dashBoard
+    def printAuditDetail(abc):
+        print("Name: "+ abc.name + "    Email: "+ abc.email)
+        print("time: " + abc.time + "   DashBoard guid: " + abc.dashBoard)
+ListAuditLog = []
+ListAuditLog.append(AuditLog("Kevin", "electrobubz@gmail.com", current_time, "MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
+
+def printAuditLog():
+    for i in ListAuditLog:
+        i.printAuditDetail()
 
 def postReq(abc):
 
@@ -108,10 +126,12 @@ def sendMail(abc):
             with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
                 server.login("python.test.123454321@gmail.com", password)
                 server.sendmail(sender_email, receiver_email, message)
+            ListAuditLog.append(AuditLog(i.getName(), receiver_email, current_time, abc))
 
 
 #schedule.every().day.at("10:30").do(sendMail("MzM5MzExMHxWSVp8REFTSEJPQVJEfDU2MTkwMjU"))
 #schedule.every().day.at("11:30").do(sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3ODQ0NzM")
-#sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk")
+sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk")
 
 printLog()
+printAuditLog()
