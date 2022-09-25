@@ -60,7 +60,7 @@ class JDS(App):
         self.window.add_widget(self.button3)
         
         self.button4 = Button(
-            text = "Print Error Log",
+            text = "Print",
             size_hint = (0.5, 0.5),
             bold = True,
             font_size = 30

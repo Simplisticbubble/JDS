@@ -22,6 +22,11 @@ class Person:
     def hasdash(abc,dboard):
         if dboard == abc.dashBoard:
             return True
+    def hasName(abc,uName):
+        if uName == abc.name:
+            return True
+    def getGUID(abc):
+        return abc.dashBoard
 
 "List of Recipients"
 ListRec = []
@@ -134,8 +139,27 @@ def sendMail(abc):
                 server.sendmail(sender_email, receiver_email, message)
             ListAuditLog.append(AuditLog(i.getName(), receiver_email, current_time, abc))
 
+def sendUser(abc):
+    for i in ListRec:
+        if i.hasName(abc):
+            receiver_email = i.getEmail()
+            TEXT = slicer(postReq(i.getGUID()))
+            SUBJECT = "TEST"
+            message = """\
+            Subject: %s
 
-#schedule.every().day.at("10:30").do(sendMail("MzM5MzExMHxWSVp8REFTSEJPQVJEfDU2MTkwMjU"))
+            %s
+            """ % ( SUBJECT, TEXT)
+
+            with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+                server.login("python.test.123454321@gmail.com", password)
+                server.sendmail(sender_email, receiver_email, message)
+            ListAuditLog.append(AuditLog(i.getName(), receiver_email, current_time, abc))
+
+sendUser("Kevin")
+
+
+#schedule.every().day.at("10:30").do(sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk"))
 #schedule.every().day.at("11:30").do(sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3ODQ0NzM")
 #sendMail("MzYyMzc0MHxWSVp8REFTSEJPQVJEfDU3MzgyMDk")
 
